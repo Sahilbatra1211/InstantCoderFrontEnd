@@ -20,3 +20,9 @@ Admin/Frontend
 Issues that needs to be solved:
 1. Store and backend still has speciality as general physcian etc which needs to be changed.
 2. Even api are defined as doctors/list which needs to be changed in backend and admin.
+
+
+Flows that needs to be tested:
+1. Login/SignUp flow (tested by Sudhanshu)
+2. Book Appointment flow (Pending)
+3. Payment Flow (Pending)
