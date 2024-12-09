@@ -10,9 +10,13 @@ Currently, two official plugins are available:
 
 To run:
 Backend:
-npm install
-npm run server
+- npm install
+- npm run server
 
 Admin/Frontend
-npm install
-npm run dev
+- npm install
+- npm run dev
+
+Issues that needs to be solved:
+1. Store and backend still has speciality as general physcian etc which needs to be changed.
+2. Even api are defined as doctors/list which needs to be changed in backend and admin.
