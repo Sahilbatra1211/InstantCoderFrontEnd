@@ -30,18 +30,27 @@ const TopCoders = () => {
                                 <p>{item.available ? 'Available' : "Not Available"}</p>
                             </div>
                             <p className='text-[#262626] text-lg font-medium'>{item.name}</p>
-                            <p className='text-[#5C5C5C] text-sm'>{item.speciality}</p>
+                            <div className="flex gap-1 overflow-x-auto whitespace-nowrap">
+                                {item.specialities?.map((speciality, index) => (
+                                    <span
+                                    key={index}
+                                    className="bg-[#EAEFFF] text-[#5C5C5C] text-[11px] font-medium px-1 py-0.5 rounded-full border border-[#C9D8FF] whitespace-nowrap"
+                                    >
+                                    {speciality.speciality}
+                                    </span>
+                                ))}
+                            </div>
                             <p
-    className={`text-[#5C5C5C] text-xs font-normal italic ${!isExpanded ? 'line-clamp-2' : ''}`} // Smaller text, grey color, and italic
-    style={{
-        display: '-webkit-box',
-        WebkitBoxOrient: 'vertical',
-        overflow: 'hidden',
-        lineHeight: '1.5', // Adjust line height for better readability
-    }}
->
-    {item.about}
-</p>
+                                className={`text-[#5C5C5C] text-xs font-normal italic ${!isExpanded ? 'line-clamp-2' : ''}`} // Smaller text, grey color, and italic
+                                style={{
+                                    display: '-webkit-box',
+                                    WebkitBoxOrient: 'vertical',
+                                    overflow: 'hidden',
+                                    lineHeight: '1.5', // Adjust line height for better readability
+                                }}
+                            >
+                                {item.about}
+                            </p>
 
                             <button onClick={toggleDescription} className='text-blue-500 text-xs'>
                                 {isExpanded ? 'Show Less' : 'Read More'}
