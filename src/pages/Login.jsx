@@ -43,13 +43,11 @@ const Login = () => {
 
     // Initialize Google Sign-In only after component mounts
     const initializeGoogleSignIn = () => {
-      console.log('initializeGoogleSignIn loaded')
       if (typeof google !== 'undefined') {
-        console.error('Google Sign-In script is loaded successfully. backend: ' + import.meta.env.VITE_BACKEND_URL)
         function handleCredentialResponse(response) {
           // Send the token to your backend to verify and handle the login process
           axios
-            .post(import.meta.env.VITE_BACKEND_URL + '/api/user/callback', {
+            .post('https://instantcoderbackend-dabdczf0fwhgasbe.southeastasia-01.azurewebsites.net' + '/api/user/callback', {
               token: response.credential,
             })
             .then((res) => {
