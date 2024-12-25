@@ -43,7 +43,9 @@ const Login = () => {
 
     // Initialize Google Sign-In only after component mounts
     const initializeGoogleSignIn = () => {
+      console.log('initializeGoogleSignIn loaded')
       if (typeof google !== 'undefined') {
+        console.error('Google Sign-In script is loaded successfully.')
         function handleCredentialResponse(response) {
           // Send the token to your backend to verify and handle the login process
           axios
