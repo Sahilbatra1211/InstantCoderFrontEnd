@@ -47,7 +47,7 @@ const Login = () => {
         function handleCredentialResponse(response) {
           // Send the token to your backend to verify and handle the login process
           axios
-            .post('http://localhost:8080/api/user/callback', {
+            .post(import.meta.env.VITE_BACKEND_URL + '/api/user/callback', {
               token: response.credential,
             })
             .then((res) => {
