@@ -45,7 +45,7 @@ const Login = () => {
     const initializeGoogleSignIn = () => {
       console.log('initializeGoogleSignIn loaded')
       if (typeof google !== 'undefined') {
-        console.error('Google Sign-In script is loaded successfully.')
+        console.error('Google Sign-In script is loaded successfully. backend: ' + import.meta.env.VITE_BACKEND_URL)
         function handleCredentialResponse(response) {
           // Send the token to your backend to verify and handle the login process
           axios
