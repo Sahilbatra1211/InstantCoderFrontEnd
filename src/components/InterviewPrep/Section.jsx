@@ -8,7 +8,7 @@ const Section = ({ title, children }) => {
     <div className={`section ${isCollapsed ? 'section-collapsed' : ''}`}>
       <div className="section-header" onClick={() => setIsCollapsed(!isCollapsed)}>
         <span className="section-title">{title}</span>
-        <span className="collapse-icon">{isCollapsed ? '▶' : '▼'}</span>
+        <span className="collapse-icon">{isCollapsed ? '+' : '|'}</span>
       </div>
       {!isCollapsed && <div className="section-content">{children}</div>}
     </div>

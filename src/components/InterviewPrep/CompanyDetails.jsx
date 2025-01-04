@@ -1,20 +1,20 @@
 import React from 'react';
 import DifficultyLevel from './DifficultyLevel';
+import Mentors from './Mentors';
 import Section from './Section';
+import Experiences from './Experiences';
+import FAQ from './FAQ';
 
 const CompanyDetails = ({ companyData }) => (
   <div>
-    <Section title="Difficulty Level">
-    <DifficultyLevel difficulty={companyData.difficulty} />
+    <Section title="Maximum Compensation">
+        75LPA
     </Section>
-    <Section title="Mentors">
-      <ul>
-        {companyData.mentors.map((mentor, index) => (
-          <li key={index}>
-            {mentor.name} - {mentor.role}
-          </li>
-        ))}
-      </ul>
+    <Section title="Difficulty Level">
+      <DifficultyLevel difficulty={companyData.difficulty} />
+    </Section>
+    <Section title={`Recently Interviewed at ${companyData.name}`}>
+      <Mentors companyName={companyData.name} /> {/* Pass company name as prop */}
     </Section>
     <Section title="Rounds">
       {companyData.rounds.map((round, index) => (
@@ -24,12 +24,11 @@ const CompanyDetails = ({ companyData }) => (
         </div>
       ))}
     </Section>
-    <Section title="Interview Experiences">
-      <ul>
-        {companyData.experiences.map((exp, index) => (
-          <li key={index}>{exp}</li>
-        ))}
-      </ul>
+    <Section title="All Recent Interview Experiences">
+      <Experiences experiences={companyData.experiences} /> {/* Pass experiences correctly */}
+    </Section>
+    <Section title="Frequently Asked Questions">
+      <FAQ/>
     </Section>
   </div>
 );
