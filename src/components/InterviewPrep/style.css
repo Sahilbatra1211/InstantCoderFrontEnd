@@ -1,0 +1,87 @@
+/* General container styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for better design */
+  }
+  
+  /* Section styles */
+  .section {
+    padding: 10px 0;
+    position: relative;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    cursor: pointer;
+  }
+  
+  .section-content {
+    margin-top: 10px;
+  }
+  
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 450;
+  }
+  
+  .collapse-icon {
+    font-size: 0.9rem;
+    transform: rotate(90deg);
+    transition: transform 0.2s;
+  }
+  
+  .section-collapsed .collapse-icon {
+    transform: rotate(0);
+  }
+  
+  /* Search bar styles */
+  .search-bar {
+    display: flex;
+    justify-content: center; /* Center the search bar */
+    gap: 10px; /* Space between the selects and button */
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .search-select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 200px;
+  }
+  
+  .search-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 40px;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* List styles */
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  li {
+    margin: 5px 0;
+  }
+  

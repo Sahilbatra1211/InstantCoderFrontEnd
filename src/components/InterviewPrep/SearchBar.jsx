@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import mockApi from '../../mock/api';
+import './style.css';
 
 const SearchBar = ({ onSearch }) => {
   const [companies, setCompanies] = useState([]);
@@ -8,7 +9,6 @@ const SearchBar = ({ onSearch }) => {
   const [selectedLevel, setSelectedLevel] = useState('');
 
   useEffect(() => {
-    // Mock API to fetch companies and levels
     const fetchFilters = async () => {
       const companies = await mockApi.getCompanies();
       const levels = await mockApi.getLevels();
@@ -25,33 +25,34 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 mb-6">
+    <div className="search-bar">
       <div className="flex gap-4">
         <select
-          className="border border-gray-300 rounded-md px-4 py-2"
+          className="search-select"
           value={selectedCompany}
           onChange={(e) => setSelectedCompany(e.target.value)}
         >
           <option value="" disabled>Select Company</option>
           {companies.map((company) => (
-            <option key={company} value={company}>{company}</option>
+            <option key={company} value={company}>
+              {company}
+            </option>
           ))}
         </select>
         <select
-          className="border border-gray-300 rounded-md px-4 py-2"
+          className="search-select"
           value={selectedLevel}
           onChange={(e) => setSelectedLevel(e.target.value)}
         >
           <option value="" disabled>Select Level</option>
           {levels.map((level) => (
-            <option key={level} value={level}>{level}</option>
+            <option key={level} value={level}>
+              {level}
+            </option>
           ))}
         </select>
       </div>
-      <button
-        onClick={handleSearch}
-        className="bg-blue-500 text-white px-6 py-2 rounded-md"
-      >
+      <button onClick={handleSearch} className="search-button">
         Search
       </button>
     </div>
