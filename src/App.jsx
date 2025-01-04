@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Coders from './pages/Coders'
 import Login from './pages/Login'
 import About from './pages/About'
+import InterviewPrep from './pages/InterviewPrep';
 import Contact from './pages/Contact'
 import Appointment from './pages/Appointment'
 import MyAppointments from './pages/MyAppointments'
@@ -28,6 +29,7 @@ const App = () => {
         <Route path='/contact' element={<Contact />} />
         <Route path='/appointment/:docId' element={<Appointment />} />
         <Route path='/my-appointments' element={<MyAppointments />} />
+        <Route path='/interview-prep' element={<InterviewPrep />} />
         <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/verify' element={<Verify />} />
       </Routes>
