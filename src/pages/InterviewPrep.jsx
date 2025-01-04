@@ -1,10 +1,22 @@
+import React, { useState } from 'react';
+import SearchBar from '../components/InterviewPrep/SearchBar';
+import CompanyDetails from '../components/InterviewPrep/CompanyDetails';
+import mockApi from '../mock/api';
+
 const InterviewPrep = () => {
-    return (
-      <div>
-        <h1>Interview Preparation</h1>
-        <p>Welcome to the Interview Prep section! Explore patterns, tips, and resources.</p>
-      </div>
-    );
+  const [companyData, setCompanyData] = useState(null);
+
+  const handleSearch = async (company, level) => {
+    const data = await mockApi.getCompanyData(company, level);
+    setCompanyData(data);
   };
-  
-  export default InterviewPrep;
+
+  return (
+    <div className="container mx-auto px-4">
+      <SearchBar onSearch={handleSearch} />
+      {companyData && <CompanyDetails companyData={companyData} />}
+    </div>
+  );
+};
+
+export default InterviewPrep;
