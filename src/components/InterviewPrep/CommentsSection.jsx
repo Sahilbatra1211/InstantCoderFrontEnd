@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './style.css';
 
 const CommentsSection = () => {
   const [comments, setComments] = useState([]);
@@ -12,8 +13,8 @@ const CommentsSection = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-bold">Comments</h2>
+    <div className="section">
+      <h2 className="section-title">Comments</h2>
       <textarea
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
@@ -22,13 +23,13 @@ const CommentsSection = () => {
       />
       <button
         onClick={addComment}
-        className="bg-green-500 text-white px-4 py-2 rounded-md mt-2"
+        className="search-button mt-2"
       >
         Add Comment
       </button>
-      <ul className="list-disc pl-5 mt-4">
+      <ul className="mt-4">
         {comments.map((comment, index) => (
-          <li key={index} className="text-gray-700">{comment}</li>
+          <li key={index}>{comment}</li>
         ))}
       </ul>
     </div>
