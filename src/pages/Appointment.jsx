@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 
 const Appointment = () => {
 
-    const { docId } = useParams()
+    const { coderId } = useParams()
     const { coders, currencySymbol, backendUrl, token, getDoctosData } = useContext(AppContext)
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
@@ -20,7 +20,7 @@ const Appointment = () => {
     const navigate = useNavigate()
 
     const fetchDocInfo = async () => {
-        const docInfo = coders.find((doc) => doc._id === docId)
+        const docInfo = coders.find((doc) => doc._id === coderId)
         setDocInfo(docInfo)
     }
 
@@ -102,7 +102,7 @@ const Appointment = () => {
 
         try {
 
-            const { data } = await axios.post(backendUrl + '/api/user/book-appointment', { docId, slotDate, slotTime }, { headers: { token } })
+            const { data } = await axios.post(backendUrl + '/api/user/book-appointment', { coderId, slotDate, slotTime }, { headers: { token } })
             if (data.success) {
                 toast.success(data.message)
                 // TODO: fix this after booking is successful it throws an error saying this method is not defined.
@@ -123,7 +123,7 @@ const Appointment = () => {
         if (coders.length > 0) {
             fetchDocInfo()
         }
-    }, [coders, docId])
+    }, [coders, coderId])
 
     useEffect(() => {
         if (docInfo) {
@@ -182,7 +182,7 @@ const Appointment = () => {
             </div>
 
             {/* Listing Releated Doctors */}
-            <RelatedCoders speciality={docInfo.speciality} docId={docId} />
+            <RelatedCoders speciality={docInfo.speciality} coderId={coderId} />
         </div>
     ) : null
 }
