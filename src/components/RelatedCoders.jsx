@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
-const RelatedDoctors = ({ speciality, docId }) => {
+const Relatedcoders = ({ speciality, docId }) => {
 
     const navigate = useNavigate()
     const { coders } = useContext(AppContext)
@@ -10,8 +10,8 @@ const RelatedDoctors = ({ speciality, docId }) => {
 
     useEffect(() => {
         if (coders.length > 0 && speciality) {
-            const doctorsData = coders.filter((doc) => doc.speciality === speciality && doc._id !== docId)
-            setRelDoc(doctorsData)
+            const codersData = coders.filter((doc) => doc.speciality === speciality && doc._id !== docId)
+            setRelDoc(codersData)
         }
     }, [coders, speciality, docId])
 
@@ -38,4 +38,4 @@ const RelatedDoctors = ({ speciality, docId }) => {
     )
 }
 
-export default RelatedDoctors
+export default Relatedcoders

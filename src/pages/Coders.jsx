@@ -11,7 +11,7 @@ const Coders = () => {
 
   const applyFilter = () => {
     if (speciality) {
-      // Filter doctors based on whether the speciality array contains the desired speciality
+      // Filter coders based on whether the speciality array contains the desired speciality
       setFilterDoc(coders.filter(doc =>
         doc.specialities?.some(s => s.speciality === speciality)
       ));

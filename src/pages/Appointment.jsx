@@ -134,7 +134,7 @@ const Appointment = () => {
     return docInfo ? (
         <div>
 
-            {/* ---------- Doctor Details ----------- */}
+            {/* ---------- coder Details ----------- */}
             <div className='flex flex-col sm:flex-row gap-4'>
                 <div>
                     <img className='bg-primary w-full sm:max-w-72 rounded-lg' src={docInfo.image} alt="" />
@@ -181,7 +181,7 @@ const Appointment = () => {
                 <button onClick={bookAppointment} className='bg-primary text-white text-sm font-light px-20 py-3 rounded-full my-6'>Book an appointment</button>
             </div>
 
-            {/* Listing Releated Doctors */}
+            {/* Listing Releated coders */}
             <RelatedCoders speciality={docInfo.speciality} docId={docId} />
         </div>
     ) : null
