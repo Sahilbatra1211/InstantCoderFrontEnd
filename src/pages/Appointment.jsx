@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 
 const Appointment = () => {
 
-    const { docId } = useParams()
+    const { coderId } = useParams()
     const { coders, currencySymbol, backendUrl, token, getDoctosData } = useContext(AppContext)
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
@@ -20,7 +20,7 @@ const Appointment = () => {
     const navigate = useNavigate()
 
     const fetchDocInfo = async () => {
-        const docInfo = coders.find((doc) => doc._id === docId)
+        const docInfo = coders.find((doc) => doc._id === coderId)
         setDocInfo(docInfo)
     }
 
@@ -102,7 +102,7 @@ const Appointment = () => {
 
         try {
 
-            const { data } = await axios.post(backendUrl + '/api/user/book-appointment', { docId, slotDate, slotTime }, { headers: { token } })
+            const { data } = await axios.post(backendUrl + '/api/user/book-appointment', { coderId, slotDate, slotTime }, { headers: { token } })
             if (data.success) {
                 toast.success(data.message)
                 // TODO: fix this after booking is successful it throws an error saying this method is not defined.
@@ -123,9 +123,10 @@ const Appointment = () => {
         if (coders.length > 0) {
             fetchDocInfo()
         }
-    }, [coders, docId])
+    }, [coders, coderId])
 
     useEffect(() => {
+        console.log(docInfo);
         if (docInfo) {
             getAvailableSolts()
         }
@@ -133,17 +134,12 @@ const Appointment = () => {
 
     return docInfo ? (
         <div>
-
-            {/* ---------- coder Details ----------- */}
             <div className='flex flex-col sm:flex-row gap-4'>
                 <div>
                     <img className='bg-primary w-full sm:max-w-72 rounded-lg' src={docInfo.image} alt="" />
                 </div>
 
                 <div className='flex-1 border border-[#ADADAD] rounded-lg p-8 py-7 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0'>
-
-                    {/* ----- Doc Info : name, degree, experience ----- */}
-
                     <p className='flex items-center gap-2 text-3xl font-medium text-gray-700'>{docInfo.name} <img className='w-5' src={assets.verified_icon} alt="" /></p>
                     <div className='flex items-center gap-2 mt-1 text-gray-600'>
                         <p>{docInfo.degree} - {docInfo.speciality}</p>
@@ -156,7 +152,7 @@ const Appointment = () => {
                         <p className='text-sm text-gray-600 max-w-[700px] mt-1'>{docInfo.about}</p>
                     </div>
 
-                    <p className='text-gray-600 font-medium mt-4'>Appointment fee: <span className='text-gray-800'>{currencySymbol}{docInfo.fees}</span> </p>
+                    <p className='text-gray-600 font-medium mt-4'>Appointment fee ss: <span className='text-gray-800'>{currencySymbol}{docInfo.fees}</span> </p>
                 </div>
             </div>
 
@@ -182,7 +178,7 @@ const Appointment = () => {
             </div>
 
             {/* Listing Releated coders */}
-            <RelatedCoders speciality={docInfo.speciality} docId={docId} />
+            <RelatedCoders speciality={docInfo.speciality} coderId={coderId} />
         </div>
     ) : null
 }

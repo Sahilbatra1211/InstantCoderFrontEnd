@@ -1,6 +1,14 @@
-const Card = ({ item, isExpanded, toggleDescription }) => (
+import { useNavigate } from 'react-router-dom'
+
+const Card = ({ item, isExpanded, toggleDescription }) => {
+  const navigate = useNavigate(); // Initialize navigate here
+
+  return (
     <div
-      onClick={() => { navigate(`/appointment/${item._id}`); scrollTo(0, 0) }}
+      onClick={() => { 
+        navigate(`/appointment/${item._id}`); 
+        scrollTo(0, 0); 
+      }}
       className='border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500'
     >
       <img className='bg-[#EAEFFF]' src={item.image} alt="" />
@@ -38,5 +46,6 @@ const Card = ({ item, isExpanded, toggleDescription }) => (
       </div>
     </div>
   );
-  
-  export default Card;
+};
+
+export default Card;

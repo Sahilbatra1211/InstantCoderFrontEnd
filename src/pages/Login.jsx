@@ -46,8 +46,9 @@ const Login = () => {
       if (typeof google !== 'undefined') {
         function handleCredentialResponse(response) {
           // Send the token to your backend to verify and handle the login process
+          const backendUrl = import.meta.env.VITE_BACKEND_URL
           axios
-            .post('https://instantcoderbackend-dabdczf0fwhgasbe.southeastasia-01.azurewebsites.net' + '/api/user/callback', {
+            .post(backendUrl + '/api/user/callback', {
               token: response.credential,
             })
             .then((res) => {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
-const Relatedcoders = ({ speciality, docId }) => {
+const Relatedcoders = ({ speciality, coderId }) => {
 
     const navigate = useNavigate()
     const { coders } = useContext(AppContext)
@@ -10,10 +10,10 @@ const Relatedcoders = ({ speciality, docId }) => {
 
     useEffect(() => {
         if (coders.length > 0 && speciality) {
-            const codersData = coders.filter((doc) => doc.speciality === speciality && doc._id !== docId)
+            const codersData = coders.filter((doc) => doc.speciality === speciality && doc._id !== coderId)
             setRelDoc(codersData)
         }
-    }, [coders, speciality, docId])
+    }, [coders, speciality, coderId])
 
     return (
         <div className='flex flex-col items-center gap-4 my-16 text-[#262626]'>
