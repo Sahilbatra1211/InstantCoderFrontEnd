@@ -5,28 +5,48 @@ const RightPane = ({ onSearch }) => {
   const { company } = useParams();
   const [companies, setCompanies] = useState([]);
   const [roles, setRoles] = useState([]);
+  const [jobOpenings, setJobOpenings] = useState([]);
   const [searchQuery, setSearchQuery] = useState({ company: '', role: '' });
 
   useEffect(() => {
-    // Mock API fetching companies and roles
     const fetchData = async () => {
       const mockCompanies = [
         { name: 'Google', roles: ['SDE1', 'SDE2', 'Product Manager'] },
         { name: 'Microsoft', roles: ['SDE1', 'SDE2', 'DevOps Engineer'] },
         { name: 'Amazon', roles: ['SDE1', 'Data Scientist'] },
       ];
+
+      // Set company names and roles
       setCompanies(mockCompanies.map((c) => c.name));
       setRoles(
         company
           ? mockCompanies.find((c) => c.name === company)?.roles || []
           : mockCompanies.flatMap((c) => c.roles)
       );
+      
+      // Simulate fetching jobs
+      const fetchJobs = (company, role) => {
+        const jobs = [
+          { title: `${role} at ${company}`, url: `${company}-${role}-job-1.com` },
+          { title: `${role} at ${company}`, url: `${company}-${role}-job-2.com` },
+          { title: `SDE1 at ${company}`, url: `${company}-SDE1-job-1.com` },
+          { title: `SDE2 at ${company}`, url: `${company}-SDE2-job-2.com` },
+        ];
+        return jobs.filter((job) => job.title.includes(role));
+      };
+
+      const jobs = company
+        ? fetchJobs(company, '')
+        : mockCompanies.flatMap((c) => fetchJobs(c.name, ''));
+
+      setJobOpenings(jobs);
     };
+
     fetchData();
   }, [company]);
 
   const handleSearch = () => {
-    onSearch(searchQuery.company);
+    onSearch(searchQuery.company, searchQuery.role);
   };
 
   return (
@@ -73,16 +93,17 @@ const RightPane = ({ onSearch }) => {
       <h2 className="text-2xl font-bold mb-4">
         {company ? `${company} Job Openings` : 'Recent Job Openings'}
       </h2>
+      
       <div>
-        {roles.length > 0 ? (
-          roles.map((role, index) => (
-            <div
-              key={index}
-              className="p-4 mb-4 border rounded shadow-sm bg-white"
-            >
+        {jobOpenings.length > 0 ? (
+          jobOpenings.map((job, index) => (
+            <div key={index} className="p-4 mb-4 border rounded shadow-sm bg-white">
               <p>
-                <strong>Role:</strong> {role}
+                <strong>Job Title:</strong> {job.title}
               </p>
+              <a href={job.url} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+                Apply Here
+              </a>
             </div>
           ))
         ) : (
