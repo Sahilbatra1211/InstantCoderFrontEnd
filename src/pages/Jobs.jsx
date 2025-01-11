@@ -8,8 +8,8 @@ const Jobs = () => {
   const { company } = useParams(); // Get company from the route parameter
 
   // Function to handle search and redirect
-  const handleSearch = (companyName) => {
-    navigate(`/jobs/${companyName}`);
+  const handleSearch = (companyName, roleName) => {
+    navigate(`/jobs/${companyName}/${roleName}`);
   };
 
   return (
@@ -19,7 +19,14 @@ const Jobs = () => {
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<RightPane onSearch={handleSearch} />} />
-          <Route path="/:company" element={<RightPane onSearch={handleSearch} />} />
+          <Route
+            path="/:company"
+            element={<RightPane onSearch={handleSearch} />}
+          />
+          <Route
+            path="/:company/:role"
+            element={<RightPane onSearch={handleSearch} />}
+          />
         </Routes>
       </div>
     </div>

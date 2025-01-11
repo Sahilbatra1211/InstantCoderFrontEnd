@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const RightPane = ({ onSearch }) => {
-  const { company } = useParams();
+  const { company, role } = useParams(); // Get company and role from URL params
   const [companies, setCompanies] = useState([]);
   const [roles, setRoles] = useState([]);
   const [jobOpenings, setJobOpenings] = useState([]);
   const [searchQuery, setSearchQuery] = useState({ company: '', role: '' });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    // Mock data fetching for companies and roles
     const fetchData = async () => {
       const mockCompanies = [
         { name: 'Google', roles: ['SDE1', 'SDE2', 'Product Manager'] },
@@ -16,15 +19,16 @@ const RightPane = ({ onSearch }) => {
         { name: 'Amazon', roles: ['SDE1', 'Data Scientist'] },
       ];
 
-      // Set company names and roles
       setCompanies(mockCompanies.map((c) => c.name));
+
+      // Set roles based on the selected company
       setRoles(
         company
           ? mockCompanies.find((c) => c.name === company)?.roles || []
           : mockCompanies.flatMap((c) => c.roles)
       );
-      
-      // Simulate fetching jobs
+
+      // Fetch job openings based on company and role
       const fetchJobs = (company, role) => {
         const jobs = [
           { title: `${role} at ${company}`, url: `${company}-${role}-job-1.com` },
@@ -32,22 +36,35 @@ const RightPane = ({ onSearch }) => {
           { title: `SDE1 at ${company}`, url: `${company}-SDE1-job-1.com` },
           { title: `SDE2 at ${company}`, url: `${company}-SDE2-job-2.com` },
         ];
-        return jobs.filter((job) => job.title.includes(role));
+        return jobs.filter((job) => {
+          const matchesRole = role ? job.title.includes(role) : true;
+          return job.title.includes(company) && matchesRole;
+        });
       };
 
+      // Update job openings based on selected company and role
       const jobs = company
-        ? fetchJobs(company, '')
-        : mockCompanies.flatMap((c) => fetchJobs(c.name, ''));
+        ? fetchJobs(company, role)
+        : mockCompanies.flatMap((c) => fetchJobs(c.name, role));
 
       setJobOpenings(jobs);
     };
 
     fetchData();
-  }, [company]);
+  }, [company, role]);  // Re-fetch when company or role changes
 
+  // Handle search and redirect
   const handleSearch = () => {
-    onSearch(searchQuery.company, searchQuery.role);
+    onSearch(searchQuery.company, searchQuery.role);  // Search by both company and role
+    navigate(`/jobs/${searchQuery.company}/${searchQuery.role}`);
   };
+
+  useEffect(() => {
+    // Update search query based on URL params (for search functionality)
+    console.log('Company:', company);
+    console.log('Role:', role);
+    setSearchQuery({ company, role });
+  }, [company, role]);
 
   return (
     <div className="p-6">
