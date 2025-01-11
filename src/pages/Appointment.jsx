@@ -12,16 +12,16 @@ const Appointment = () => {
     const { coders, currencySymbol, backendUrl, token, getDoctosData } = useContext(AppContext)
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
-    const [docInfo, setDocInfo] = useState(false)
-    const [docSlots, setDocSlots] = useState([])
+    const [coderInfo, setDocInfo] = useState(false)
+    const [coderSlots, setDocSlots] = useState([])
     const [slotIndex, setSlotIndex] = useState(0)
     const [slotTime, setSlotTime] = useState('')
 
     const navigate = useNavigate()
 
     const fetchDocInfo = async () => {
-        const docInfo = coders.find((doc) => doc._id === coderId)
-        setDocInfo(docInfo)
+        const coderInfo = coders.find((coder) => coder._id === coderId)
+        setDocInfo(coderInfo)
     }
 
     const getAvailableSolts = async () => {
@@ -64,7 +64,7 @@ const Appointment = () => {
                 const slotDate = day + "_" + month + "_" + year
                 const slotTime = formattedTime
 
-                const isSlotAvailable = docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false : true
+                const isSlotAvailable = coderInfo.slots_booked[slotDate] && coderInfo.slots_booked[slotDate].includes(slotTime) ? false : true
 
                 if (isSlotAvailable) {
 
@@ -92,7 +92,7 @@ const Appointment = () => {
             return navigate('/login')
         }
 
-        const date = docSlots[slotIndex][0].datetime
+        const date = coderSlots[slotIndex][0].datetime
 
         let day = date.getDate()
         let month = date.getMonth() + 1
@@ -126,37 +126,37 @@ const Appointment = () => {
     }, [coders, coderId])
 
     useEffect(() => {
-        if (docInfo) {
+        if (coderInfo) {
             getAvailableSolts()
         }
-    }, [docInfo])
+    }, [coderInfo])
 
-    return docInfo ? (
+    return coderInfo ? (
         <div>
 
-            {/* ---------- Doctor Details ----------- */}
+            {/* ---------- coder Details ----------- */}
             <div className='flex flex-col sm:flex-row gap-4'>
                 <div>
-                    <img className='bg-primary w-full sm:max-w-72 rounded-lg' src={docInfo.image} alt="" />
+                    <img className='bg-primary w-full sm:max-w-72 rounded-lg' src={coderInfo.image} alt="" />
                 </div>
 
                 <div className='flex-1 border border-[#ADADAD] rounded-lg p-8 py-7 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0'>
 
                     {/* ----- Doc Info : name, degree, experience ----- */}
 
-                    <p className='flex items-center gap-2 text-3xl font-medium text-gray-700'>{docInfo.name} <img className='w-5' src={assets.verified_icon} alt="" /></p>
+                    <p className='flex items-center gap-2 text-3xl font-medium text-gray-700'>{coderInfo.name} <img className='w-5' src={assets.verified_icon} alt="" /></p>
                     <div className='flex items-center gap-2 mt-1 text-gray-600'>
-                        <p>{docInfo.degree} - {docInfo.speciality}</p>
-                        <button className='py-0.5 px-2 border text-xs rounded-full'>{docInfo.experience}</button>
+                        <p>{coderInfo.degree} - {coderInfo.speciality}</p>
+                        <button className='py-0.5 px-2 border text-xs rounded-full'>{coderInfo.experience}</button>
                     </div>
 
                     {/* ----- Doc About ----- */}
                     <div>
                         <p className='flex items-center gap-1 text-sm font-medium text-[#262626] mt-3'>About <img className='w-3' src={assets.info_icon} alt="" /></p>
-                        <p className='text-sm text-gray-600 max-w-[700px] mt-1'>{docInfo.about}</p>
+                        <p className='text-sm text-gray-600 max-w-[700px] mt-1'>{coderInfo.about}</p>
                     </div>
 
-                    <p className='text-gray-600 font-medium mt-4'>Appointment fee: <span className='text-gray-800'>{currencySymbol}{docInfo.fees}</span> </p>
+                    <p className='text-gray-600 font-medium mt-4'>Appointment fee: <span className='text-gray-800'>{currencySymbol}{coderInfo.fees}</span> </p>
                 </div>
             </div>
 
@@ -164,7 +164,7 @@ const Appointment = () => {
             <div className='sm:ml-72 sm:pl-4 mt-8 font-medium text-[#565656]'>
                 <p >Booking slots</p>
                 <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
-                    {docSlots.length && docSlots.map((item, index) => (
+                    {coderSlots.length && coderSlots.map((item, index) => (
                         <div onClick={() => setSlotIndex(index)} key={index} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border border-[#DDDDDD]'}`}>
                             <p>{item[0] && daysOfWeek[item[0].datetime.getDay()]}</p>
                             <p>{item[0] && item[0].datetime.getDate()}</p>
@@ -173,7 +173,7 @@ const Appointment = () => {
                 </div>
 
                 <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
-                    {docSlots.length && docSlots[slotIndex].map((item, index) => (
+                    {coderSlots.length && coderSlots[slotIndex].map((item, index) => (
                         <p onClick={() => setSlotTime(item.time)} key={index} className={`text-sm font-light  flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${item.time === slotTime ? 'bg-primary text-white' : 'text-[#949494] border border-[#B4B4B4]'}`}>{item.time.toLowerCase()}</p>
                     ))}
                 </div>
@@ -181,8 +181,8 @@ const Appointment = () => {
                 <button onClick={bookAppointment} className='bg-primary text-white text-sm font-light px-20 py-3 rounded-full my-6'>Book an appointment</button>
             </div>
 
-            {/* Listing Releated Doctors */}
-            <RelatedCoders speciality={docInfo.speciality} coderId={coderId} />
+            {/* Listing Releated Coders */}
+            <RelatedCoders speciality={coderInfo.speciality} coderId={coderId} />
         </div>
     ) : null
 }
