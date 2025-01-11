@@ -38,4 +38,4 @@ const Relatedcoders = ({ speciality, coderId }) => {
     )
 }
 
-export default Relatedcoders
+export default RelatedCoders
