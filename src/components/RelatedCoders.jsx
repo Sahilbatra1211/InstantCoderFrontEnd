@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
-const Relatedcoders = ({ speciality, coderId }) => {
+const RelatedCoders = ({ speciality, coderId }) => {
 
     const navigate = useNavigate()
     const { coders } = useContext(AppContext)
